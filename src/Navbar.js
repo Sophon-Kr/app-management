@@ -114,7 +114,7 @@ export default function Navbar() {
             {/* ---------------------------logo----------------------------------*/}
             {/* ---------------------------Menu----------------------------------*/}
             <Grid container spacing={2} className={classes.menuGroup}>
-              <Grid item xs={2}>
+              <Grid item >
                 <Button
                   fullWidth
                   variant="contained"
@@ -124,7 +124,7 @@ export default function Navbar() {
                   Front Desk
                 </Button>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item >
                 <Button
                   fullWidth
                   variant="contained"
@@ -134,7 +134,7 @@ export default function Navbar() {
                   Contact List
                 </Button>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item >
                 <Button
                   fullWidth
                   variant="contained"
