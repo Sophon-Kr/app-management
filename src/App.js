@@ -14,6 +14,7 @@ import EditUser from "./EditUser";
 import TaskManagement from "./TaskManagement";
 import PageNotFound from "./PageNotFound";
 import reducer from "./reducer";
+// import Navbar2 from './Navbar2';
 
 function App() {
   const store = createStore(reducer, applyMiddleware(thunk));
@@ -22,6 +23,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Navbar />
+          {/* <Navbar2 /> */}
           <Switch>
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/signup" component={Signup} />

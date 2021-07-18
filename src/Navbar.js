@@ -6,40 +6,84 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+import Avatar from "@material-ui/core/Avatar";
+import InputBase from "@material-ui/core/InputBase";
+
 import {
   createTheme,
   makeStyles,
   ThemeProvider,
+  alpha,
 } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import Icon from "@material-ui/core/Icon";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { Grid } from "@material-ui/core";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#40c4ff",
+      main: "#01579b",
     },
     secondary: {
-      main: "#fff9c4",
+      main: "#ef6c00",
     },
   },
 });
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    // margin: theme.spacing(0),
   },
-  menuButton: {
+  imglogo: {
+    maxHeight: 35,
+    maxWidth: 35,
+    border: "1.5px solid white",
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  menuGroup: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
+
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
     marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto",
+    },
   },
-  title: {
-    flexGrow: 1,
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  positionMenu: {
-    flexGrow: 30,
-    marginLeft: theme.spacing(2),
+  inputRoot: {
+    color: "inherit",
   },
-  ButtonLink: {
-    textDecoration: "none",
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
   },
 }));
 
@@ -48,64 +92,74 @@ export default function Navbar() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.root}>
+      <Container maxWidth="xl" disableGutters>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="secondary"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
+            {/* ---------------------------logo----------------------------------*/}
+            <img className={classes.imglogo} src="logo.jpg" alt="logo" />
             <Typography
-              variant="h6"
-              className={classes.title}
-              color="secondary"
+              variant="h5"
+              color="inherit"
+              style={{
+                fontFamily: "Audiowide, sans-serif",
+                textShadow: "2px 2px 2px #ababab",
+              }}
             >
-              App Management
+              Revosoft
             </Typography>
-            <div className={classes.positionMenu}>
-              <Button variant="contained" color="secondary">
-                FrontDesk
-              </Button>
-              &nbsp;&nbsp;
-              <Link to="/">
+            {/* ---------------------------logo----------------------------------*/}
+            {/* ---------------------------Menu----------------------------------*/}
+            <Grid container spacing={2} className={classes.menuGroup}>
+              <Grid item xs={3}>
                 <Button
+                  fullWidth
                   variant="contained"
                   color="secondary"
-                  className="ButtonLink"
+                  startIcon={<DeleteIcon />}
                 >
-                  UserList
+                  Delete
                 </Button>
-              </Link>
-              &nbsp;&nbsp;
-              <Link to="/task">
+              </Grid>
+              <Grid item xs={3}>
                 <Button
+                  fullWidth
                   variant="contained"
                   color="secondary"
-                  className="ButtonLink"
+                  endIcon={<Icon>send</Icon>}
                 >
-                  Task
+                  Send
                 </Button>
-              </Link>
-              &nbsp;&nbsp;
-              <Button
-                variant="contained"
-                color="secondary"
-                className="ButtonLink"
-              >
-                About
-              </Button>
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  endIcon={<Icon>send</Icon>}
+                >
+                  Send
+                </Button>
+              </Grid>
+            </Grid>
+            {/* ---------------------------Menu----------------------------------*/}
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
             </div>
 
-            <Button variant="outlined" color="secondary">
-              Login
-            </Button>
+            <Avatar src="/broken-image.jpg" />
           </Toolbar>
         </AppBar>
-      </div>
+      </Container>
     </ThemeProvider>
   );
 }
