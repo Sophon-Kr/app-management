@@ -9,6 +9,10 @@ import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import Avatar from "@material-ui/core/Avatar";
 import InputBase from "@material-ui/core/InputBase";
+import ContactMailIcon from "@material-ui/icons/ContactMail";
+import BallotIcon from "@material-ui/icons/Ballot";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import AccountBox from "@material-ui/icons/AccountBox";
 
 import {
   createTheme,
@@ -24,10 +28,10 @@ import { Grid } from "@material-ui/core";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#01579b",
+      main: "#283593",
     },
     secondary: {
-      main: "#ef6c00",
+      main: "#fff59d",
     },
   },
 });
@@ -110,34 +114,34 @@ export default function Navbar() {
             {/* ---------------------------logo----------------------------------*/}
             {/* ---------------------------Menu----------------------------------*/}
             <Grid container spacing={2} className={classes.menuGroup}>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
-                  startIcon={<DeleteIcon />}
+                  startIcon={<DashboardIcon />}
                 >
-                  Delete
+                  Front Desk
                 </Button>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
-                  endIcon={<Icon>send</Icon>}
+                  startIcon={<ContactMailIcon />}
                 >
-                  Send
+                  Contact List
                 </Button>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
-                  endIcon={<Icon>send</Icon>}
+                  startIcon={<BallotIcon />}
                 >
-                  Send
+                  Task
                 </Button>
               </Grid>
             </Grid>
@@ -156,7 +160,16 @@ export default function Navbar() {
               />
             </div>
 
-            <Avatar src="/broken-image.jpg" />
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              // aria-controls={menuId}
+              aria-haspopup="true"
+              // onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountBox />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </Container>
