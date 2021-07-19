@@ -1,29 +1,33 @@
 import React from "react";
 import "./App.css";
-import { Link } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
-import Avatar from "@material-ui/core/Avatar";
-import InputBase from "@material-ui/core/InputBase";
-import ContactMailIcon from "@material-ui/icons/ContactMail";
-import BallotIcon from "@material-ui/icons/Ballot";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import AccountBox from "@material-ui/icons/AccountBox";
-
 import {
   createTheme,
   makeStyles,
   ThemeProvider,
   alpha,
 } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
+import ContactMailIcon from "@material-ui/icons/ContactMail";
+import BallotIcon from "@material-ui/icons/Ballot";
+// import DashboardIcon from "@material-ui/icons/Dashboard";
+import AccountBox from "@material-ui/icons/AccountBox";
 import Container from "@material-ui/core/Container";
-import Icon from "@material-ui/core/Icon";
-import DeleteIcon from "@material-ui/icons/Delete";
 import { Grid } from "@material-ui/core";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import Task from "./TaskManagement";
 
 const theme = createTheme({
   palette: {
@@ -31,7 +35,7 @@ const theme = createTheme({
       main: "#283593",
     },
     secondary: {
-      main: "#fff59d",
+      main: "#e0f7fa",
     },
   },
 });
@@ -91,8 +95,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const options = [
+  " ",
+  "Front Desk",
+  "Walk in",
+  "Account",
+  "Call centre",
+  "Room plan",
+  "Stay 360",
+  "Guest stay",
+  "Checkin",
+  "Checkout",
+  "Fast Posting",
+  "Cashier banking",
+  "City ledger",
+  "Concierge ",
+  "Room blocking",
+  "Property ledger",
+  "Property ledger",
+];
+
 export default function Navbar() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const handleClick = () => {
+    console.info(`You clicked ${options[selectedIndex]}`);
+  };
+
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setOpen(false);
+  };
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -114,32 +162,94 @@ export default function Navbar() {
             {/* ---------------------------logo----------------------------------*/}
             {/* ---------------------------Menu----------------------------------*/}
             <Grid container spacing={2} className={classes.menuGroup}>
-              <Grid item >
-                <Button
+              <Grid item>
+                <ButtonGroup
+                  variant="contained"
+                  color="secondary"
+                  ref={anchorRef}
+                  aria-label="split button"
+                >
+                  <Button onClick={handleClick}>
+                    {options[selectedIndex]}
+                  </Button>
+                  <Button
+                    color="secondary"
+                    size="small"
+                    aria-controls={open ? "split-button-menu" : undefined}
+                    aria-expanded={open ? "true" : undefined}
+                    aria-label="select merge strategy"
+                    aria-haspopup="menu"
+                    onClick={handleToggle}
+                  >
+                    <ArrowDropDownIcon />
+                  </Button>
+                </ButtonGroup>
+                <Popper
+                  open={open}
+                  anchorEl={anchorRef.current}
+                  role={undefined}
+                  transition
+                  disablePortal
+                >
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin:
+                          placement === "bottom"
+                            ? "center top"
+                            : "center bottom",
+                      }}
+                    >
+                      <Paper>
+                        <ClickAwayListener onClickAway={handleClose}>
+                          <MenuList id="split-button-menu">
+                            {options.map((option, index) => (
+                              <MenuItem
+                                key={index}
+                                // key={option}
+                                disabled={index === 0}
+                                selected={index === selectedIndex}
+                                onClick={(event) =>
+                                  handleMenuItemClick(event, index)
+                                }
+                              >
+                                {option}
+                              </MenuItem>
+                            ))}
+                          </MenuList>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
+                {/* <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
                   startIcon={<DashboardIcon />}
                 >
                   Front Desk
-                </Button>
+                </Button> */}
               </Grid>
-              <Grid item >
+              <Grid item>
                 <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
                   startIcon={<ContactMailIcon />}
+                  href="./"
                 >
                   Contact List
                 </Button>
               </Grid>
-              <Grid item >
+              <Grid item>
                 <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
                   startIcon={<BallotIcon />}
+                  href="./task"
                 >
                   Task
                 </Button>
