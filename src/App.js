@@ -8,7 +8,7 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import Navbar from "./Navbar";
 // import Users from "./Users";
-import UserList from "./UsersList";
+import UsersList from "./UsersList";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
 import TaskManagement from "./TaskManagement";
@@ -30,7 +30,8 @@ function App() {
             <Route exact path="/edit/:id" component={EditUser} />
             <Route exact path="/add" component={AddUser} />
             <Route exact path="/task" component={TaskManagement} />
-            <Route exact path="/" component={UserList} />
+            <Route exact path="/UsersList" component={UsersList} />
+            <Route exact path="/" component={UsersList} />
             <Route component={PageNotFound} />
           </Switch>
         </BrowserRouter>
